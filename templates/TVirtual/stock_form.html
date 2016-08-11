@@ -1,0 +1,14 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block maincontent %}
+<div class="container">
+	<form class="form-inline" role="form" enctype="multipart/form-data" method="post">{% csrf_token %}
+		<div class="form-group">
+			{{form.as_p}}
+			<input class="btn btn-success" type="submit" name="Crear">
+			<a class="btn btn-info" href="{% url 'Inicio' %}">Cancelar</a>
+		</div>
+	</form>
+</div>
+{% endblock maincontent %}
