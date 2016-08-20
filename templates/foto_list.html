@@ -2,15 +2,6 @@
 {% load static %}
 
 {% block maincontent %}
-<div>
-	{% if user.is_authenticated %}
-		<div>
-        	<img class="img-circle" src="{{MEDIA_URL}}{{user.userprofile.photo }}" alt="Imagen de {{ user.username }}" width="104" height="56" />
-        	Bienvenido, <b>{{user.username}}</b>
-    	</div>
-	{% endif %}
-</div>
-<hr>
 <div class="container">
 	<div class="row well">
 		{% for p in object_list.all %}
@@ -21,23 +12,23 @@
 				</div>
 				<div class="panel-body">
 							<img style="margin: 0 auto;" class="img-responsive" src="{% static p.imagen.url %}" style="width: 150px; height: 150px" >
-							
-				</div>
-				<div class="panel-footer">
-					{% if p.precio %}
-						<strong><h3 class="text-right"><b>{{p.precio}}</b></h3></strong>
-						<a href="{% url 'Actualizar' p.codigo %}">Editar</a>
-						<a href="{% url 'Eliminar' p.codigo %}">Eliminar</a>
-					{% endif %}
 
 				</div>
-				<a class="btn btn-info btn-sm" href="" data-toggle="modal" data-target="#A_{{p.codigo}}">ver</a>
+				<div class="panel-footer">
+					<strong><h3 class="text-right"><b>{{p.precio}}</b></h3></strong>
+					{% if user.is_staff %}						
+						<a href="{% url 'Actualizar' p.codigo %}" class="btn btn-success btn-sm">Editar</a>
+						<a href="{% url 'Eliminar' p.codigo %}" class="btn btn-danger btn-sm">Eliminar</a>
+					{% endif %}
+					<a class="btn btn-info btn-sm" href="" data-toggle="modal" data-target="#A_{{p.codigo}}">ver</a>
+				</div>
+				
 			</div>
 		</div>
-		
+
 		<div class="modal fade" id="A_{{p.codigo}}" role="dialog">
 		    <div class="modal-dialog">
-		    
+
 		      <!-- Modal content-->
 			    <div class="modal-content">
 				    <div class="modal-header">
@@ -53,12 +44,12 @@
 				    	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				    </div>
 			    </div>
-		      
+
 		    </div>
 		</div>
 
 		{% endfor %}
-		
+
 	</div>
 </div>
 {% endblock maincontent %}

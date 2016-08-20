@@ -1,4 +1,4 @@
-	
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -13,7 +13,7 @@
 						<a href="{% url 'Inicio' %}">Inicio</a>
 					</li>
 				</ul>
-				
+
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<!--<ul class="nav navbar-nav">
@@ -23,24 +23,43 @@
 				</ul>-->
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
+						{% if user.is_staff %}
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Action <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
+							
 							<li>
-								<a href="{% url 'Crear' %}">Crear</a>
-							</li>
-							<li>
-								<a href="{% url 'Registrar' %}">Registrar</a>
+								<a href="{% url 'Crear' %}">Nuevo Producto</a>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="{% url 'Login' %}">LogIn</a>
+								<a href="{% url 'RegEmpleado' %}">Registrar Empleado</a>
+							</li>							
+						</ul>
+						{% endif %}
+						{% if user.is_authenticated %}
+							<li>
+								<a href="{% url 'Logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+							</li>
+							{% else %}
+							<li>
+								<a href="{% url 'Registrar' %}"><span class="glyphicon glyphicon-user"></span>Registrar</a>
 							</li>
 							<li>
-								<a href="{% url 'Logout' %}">Logout</a>
+								<a href="{% url 'Login' %}"><span class="glyphicon glyphicon-log-in"></span>LogIn</a>				
 							</li>
-						</ul>
+							{% endif %}
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+
+	<div>
+		{% if user.is_authenticated %}
+			<div>
+		       	<img class="img-circle" src="{{MEDIA_URL}}{{user.userprofile.photo }}" alt="Imagen de {{ user.username }}" width="104" height="56" />
+		        Bienvenido, <b>{{user.username}}</b>
+		    </div>
+		{% endif %}
+	</div>
+	<hr>

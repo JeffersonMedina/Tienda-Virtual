@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 	url(r'^(?P<pk>\d+)/eliminar/$', views.EliminarFoto.as_view(), name='Eliminar'),
 
 	url(r'^registrar/$', views.registrar, name='Registrar'),
+	url(r'^empleado/$', views.empleado, name='RegEmpleado'),
 	url(r'^login/$', views.usuario, name='Login'),
 	url(r'^logout/$', views.salir, name='Logout'),
 
@@ -18,5 +19,6 @@ urlpatterns = patterns('',
 
 	
     #url(r'^ws/productos/$', views.wsProductos, name='WSProductos'),
-    url(r'^ws/productos/$', views.list, name='WSProductos'),
+    url(r'^ws/list/$', views.list, name='WSProductos'),
+    url(r'^ws/productos/$', views.survey_list, name='WSProductos'),
 )
